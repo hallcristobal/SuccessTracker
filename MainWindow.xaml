@@ -1,0 +1,99 @@
+﻿<Window x:Class="SuccessTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuccessTracker"
+        mc:Ignorable="d"
+        Title="Success Tracker" Height="434" Width="315"
+        MinHeight="434" MinWidth="315"
+        Background="#FF333333" Foreground="#FFF1F1F1">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="10,0" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="Calibri" />
+            <Setter Property="Background" Value="#FF3E3E42" />
+            <Setter Property="Foreground" Value="#FFCBCBCB" />
+            <Setter Property="BorderBrush" Value="#FF252525" />
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Typography.Capitals" Value="SmallCaps"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF5C5C5C"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#FF787878"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type ContextMenu}">
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="Foreground" Value="#FFE3E3E3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border x:Name="Border" Background="#FF1B1B1C" BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="#FF888888" />
+                            </Border.BorderBrush>
+                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasDropShadow" Value="true">
+                                <Setter TargetName="Border" Property="Padding" Value="0,3,0,3" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#FFF1F1F1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Reset" Click="btnReset_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    
+    <Grid Margin="5,0">
+        <Label x:Name="lblSuccessCount" Content="0" Margin="10,44,0,0"  BorderBrush="#FFC1C1C1" BorderThickness="1" ClipToBounds="True" FontSize="48" HorizontalAlignment="Left" Width="127" Height="118" VerticalAlignment="Top"/>
+        <Label x:Name="lblSuccess" Content="Successes" Margin="10,9,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="127" FontSize="20"/>
+        <Label x:Name="lblAttemptCount" Content="0" Margin="0,44,10,0"  BorderBrush="#FFC1C1C1" BorderThickness="1" ClipToBounds="True" FontSize="48" HorizontalAlignment="Right" Width="127" Height="118" VerticalAlignment="Top"/>
+        <Label x:Name="lblAttempt" Content="Attempts" Margin="0,9,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="127" FontSize="20"/>
+        <Label x:Name="lblRate" Content="Success Rate: 0.00%" Margin="10,231,10,0" VerticalAlignment="Top" FontSize="16" Height="34"/>
+        <Label x:Name="lblBestStreak" Content="Best Streak: 0" Margin="10,261,10,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="btnSuccess" Content="Success" Margin="10,0,0,45" Height="54" VerticalAlignment="Bottom" Click="btnSuccess_Click" HorizontalAlignment="Left" Width="127" />
+        <Button x:Name="brnFail" Content="Fail" Margin="0,0,8,45" Height="54" VerticalAlignment="Bottom" Click="brnFail_Click" HorizontalAlignment="Right" Width="127"/>
+        <Label x:Name="lblLastRate" Content="Rate Last 10: 0.00%" Margin="10,167,10,0" VerticalAlignment="Top" FontSize="16" Height="34">
+            <Label.ContextMenu>
+                <ContextMenu Loaded="ContextMenu_Loaded">
+                    <MenuItem Header="Change Rate..." IsEnabled="False"/>
+                    <TextBox x:Name="cmTextBox" Width="100" KeyDown="cmTextBox_KeyDown"/>
+                    <Separator />
+                    <MenuItem Header="Enabled" IsCheckable="True" IsChecked="True" Click="MenuItem_Checked" />
+                </ContextMenu>
+            </Label.ContextMenu>
+        </Label>
+        <Label x:Name="lblSuccessStreak" Content="Current Streak: 0" Margin="10,197,10,0" VerticalAlignment="Top" FontSize="16"/>
+        <Separator Margin="0,69,0,0" Height="324" VerticalAlignment="Top" Panel.ZIndex="-500000" />
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="112,0,0,10" Width="75" Height="30" VerticalAlignment="Bottom" Click="btnReset_Click"/>
+
+    </Grid>
+</Window>
